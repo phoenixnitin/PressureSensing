@@ -121,4 +121,15 @@
         app:layout_constraintVertical_bias="0.458"
         app:srcCompat="@android:drawable/screen_background_light_transparent" />
 
+    <Button
+        android:id="@+id/buttonVibrate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="49dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="62dp"
+        android:text="Vibrate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
+
 </android.support.constraint.ConstraintLayout>

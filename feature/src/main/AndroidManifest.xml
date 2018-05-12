@@ -25,8 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main2Activity"
-            android:screenOrientation="portrait" >
+        <activity
+            android:name=".Main2Activity"
+            android:screenOrientation="portrait">
             <intent-filter android:order="1">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -39,7 +40,8 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main3Activity"
+        <activity
+            android:name=".Main3Activity"
             android:screenOrientation="portrait">
             <intent-filter android:order="1">
                 <action android:name="android.intent.action.VIEW" />

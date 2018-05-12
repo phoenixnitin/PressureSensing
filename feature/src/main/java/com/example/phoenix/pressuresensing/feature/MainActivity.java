@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.UserHandle;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity
     };
     private Button buttonCut;
     private Button buttonHit;
+    private Button vibrate;
 
     public void getdevice(BluetoothAdapter bluetooth){
         Set<BluetoothDevice> pairedDevices = bluetooth.getBondedDevices();
@@ -142,6 +144,15 @@ public class MainActivity extends AppCompatActivity
                 openActivity3();
             }
         });
+        vibrate = (Button) findViewById(R.id.buttonVibrate);
+        vibrate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Vibrator vib = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+                vib.vibrate(1000);
+            }
+        });
+
         BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
         String status;
         if(bluetooth != null)

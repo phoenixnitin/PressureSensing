@@ -53,6 +53,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Set;
 
 
 public class MainActivity extends AppCompatActivity
@@ -74,6 +75,16 @@ public class MainActivity extends AppCompatActivity
         }
     };
 
+    public void getdevice(BluetoothAdapter bluetooth){
+        Set<BluetoothDevice> pairedDevices = bluetooth.getBondedDevices();
+        if(pairedDevices.size()>0){
+            for(BluetoothDevice device: pairedDevices){
+                String deviceName = device.getName();
+                String deviceHardwareAddress = device.getAddress();
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,24 +94,37 @@ public class MainActivity extends AppCompatActivity
         pressureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
 
         BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
+        String status;
         if(bluetooth != null)
         {
             // Continue with bluetooth setup.
+            status = "Bluetooth device is present";
+            Toast.makeText(this, status, Toast.LENGTH_LONG).show();
+        }
+        else{
+            // Bluetooth device not supported
+            status = "Bluetooth device not available";
+            Toast.makeText(this, status, Toast.LENGTH_LONG).show();
         }
 
-        String status;
         if (bluetooth.isEnabled()) {
             // Enabled. Work with Bluetooth.
             String mydeviceaddress = bluetooth.getAddress();
             String mydevicename = bluetooth.getName();
             status = mydevicename + " : " + mydeviceaddress;
+            Toast.makeText(this, status, Toast.LENGTH_LONG).show();
+            getdevice(bluetooth);
         }
         else
         {
             // Disabled. Do something else.
             status = "Bluetooth is not Enabled.";
+            int REQUEST_ENABLE_BT = 1;
+            Toast.makeText(this, status, Toast.LENGTH_LONG).show();
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            getdevice(bluetooth);
         }
-        Toast.makeText(this, status, Toast.LENGTH_LONG).show();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

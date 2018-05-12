@@ -56,7 +56,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
-
+import android.graphics.*;
+import android.widget.*;
+import android.view.*;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -96,7 +98,21 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(this, Main3Activity.class);
         startActivity(intent);
     }
-
+    public void createCircle(ImageView imgviewfeet, String color){
+        float radius = 25;
+        Paint paint = new Paint();
+        if(color == "green"){
+            paint.setColor(Color.GREEN);
+        }
+        else{
+            paint.setColor(Color.RED);
+        }
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        Bitmap bmp = Bitmap.createBitmap(50, 50, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bmp);
+        canvas.drawCircle(bmp.getWidth()/2, bmp.getHeight()/2, radius, paint);
+        imgviewfeet.setImageBitmap(bmp);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +120,13 @@ public class MainActivity extends AppCompatActivity
         txt = findViewById(R.id.txt);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         pressureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
+
+        final ImageView imgviewfeet1 = (ImageView) findViewById(R.id.feetfront);
+        createCircle(imgviewfeet1, "green");
+        final ImageView imgviewfeet2 = (ImageView) findViewById(R.id.feetmid);
+        createCircle(imgviewfeet2, "green");
+        final ImageView imgviewfeet3 = (ImageView) findViewById(R.id.feetback);
+        createCircle(imgviewfeet3, "red");
 
         buttonCut = (Button) findViewById(R.id.button);
         buttonCut.setOnClickListener(new View.OnClickListener() {

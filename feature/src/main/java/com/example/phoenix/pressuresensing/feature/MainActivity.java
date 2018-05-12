@@ -1,5 +1,6 @@
 package com.example.phoenix.pressuresensing.feature;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -41,6 +42,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 import android.content.DialogInterface;
 import android.app.AlertDialog;
@@ -74,6 +76,8 @@ public class MainActivity extends AppCompatActivity
         public void onAccuracyChanged(Sensor sensor, int i) {
         }
     };
+    private Button buttonCut;
+    private Button buttonHit;
 
     public void getdevice(BluetoothAdapter bluetooth){
         Set<BluetoothDevice> pairedDevices = bluetooth.getBondedDevices();
@@ -84,6 +88,14 @@ public class MainActivity extends AppCompatActivity
             }
         }
     };
+    public void openActivity2(){
+        Intent intent = new Intent(this, Main2Activity.class);
+        startActivity(intent);
+    }
+    public void openActivity3(){
+        Intent intent = new Intent(this, Main3Activity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +105,20 @@ public class MainActivity extends AppCompatActivity
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         pressureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
 
+        buttonCut = (Button) findViewById(R.id.button);
+        buttonCut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity2();
+            }
+        });
+        buttonHit = (Button) findViewById(R.id.button2);
+        buttonHit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity3();
+            }
+        });
         BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
         String status;
         if(bluetooth != null)
